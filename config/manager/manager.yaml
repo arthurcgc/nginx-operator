@@ -15,11 +15,12 @@ spec:
       labels:
         control-plane: controller-manager
     spec:
+      serviceAccountName: nginx-controller-manager
       containers:
       - command:
         - nginx-operator
         args:
-        - --enable-leader-election
+        - --enable-leader-election=false
         image: controller:latest
         name: nginx-operator
         resources:

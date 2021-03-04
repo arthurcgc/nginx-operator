@@ -11,7 +11,7 @@ data:
         listen 8080;
 
         location / {
-          return 200 'hello';
+          proxy_pass http://go-hostname.backend.svc.cluster.local:80;
         }
       }
     }
@@ -19,9 +19,12 @@ data:
 apiVersion: nginx.tsuru.io/v1alpha1
 kind: Nginx
 metadata:
-  name: nginx-with-configmap
+  name: waf
 spec:
   replicas: 1
   config:
     kind: ConfigMap
     name: nginxconf
+  service:
+    type: NodePort
+
